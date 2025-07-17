@@ -1,0 +1,26 @@
+[project]
+name = "todo"
+version = "0.1.0"
+description = "A powerful CLI todo management tool with AI assistant capabilities"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "typer>=0.16.0",
+    "agno>=1.7.4", 
+    "sqlalchemy>=2.0.0",
+    "pendulum>=3.0.0",
+    "rich>=14.0.0",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1"
+]
+
+[project.scripts]
+todo = "todo.cli.main:app"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["todo*"]
