@@ -84,19 +84,21 @@ class TodoToolkit(Toolkit):
         title: str,
         description: Optional[str] = None,
         priority: str = "medium",
+        status: str = "pending",
         due_date: Optional[str] = None,
         tags: Optional[Dict[str, Any]] = None
     ) -> str:
         """
         添加新的待办事项
-        
+
         Args:
             title: 任务标题，必填
             description: 任务描述，可选
             priority: 任务优先级，可选值：low, medium, high，默认为medium
+            status: 任务状态，可选值：pending, in_progress, completed, cancelled，默认为pending
             due_date: 截止时间，格式：YYYY-MM-DD HH:MM:SS 或 YYYY-MM-DD，可选
             tags: 标签字典，可选
-            
+
         Returns:
             创建结果的文本描述
         """
@@ -106,12 +108,19 @@ class TodoToolkit(Toolkit):
                 task_priority = TaskPriority(priority.lower())
             except ValueError:
                 return f"错误：无效的优先级 '{priority}'，请使用 low, medium 或 high"
-            
+
+            # 验证状态
+            try:
+                task_status = TaskStatus(status.lower())
+            except ValueError:
+                return f"错误：无效的状态 '{status}'，请使用 pending, in_progress, completed 或 cancelled"
+
             # 创建任务
             task = self.task_service.create_task(
                 title=title,
                 description=description,
                 priority=task_priority,
+                status=task_status,
                 due_date=due_date,
                 tags=tags
             )
@@ -121,6 +130,8 @@ class TodoToolkit(Toolkit):
                 result_parts.append(f"📝 描述: {description}")
             if priority != "medium":
                 result_parts.append(f"⚡ 优先级: {priority}")
+            if status != "pending":
+                result_parts.append(f"📊 状态: {status}")
             if due_date:
                 result_parts.append(f"⏰ 截止时间: {due_date}")
             if tags:

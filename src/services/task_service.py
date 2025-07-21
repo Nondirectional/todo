@@ -24,18 +24,20 @@ class TaskService:
         title: str,
         description: Optional[str] = None,
         priority: TaskPriority = TaskPriority.MEDIUM,
+        status: TaskStatus = TaskStatus.PENDING,
         due_date: Optional[str] = None,
         tags: Optional[Dict[str, Any]] = None
     ) -> Task:
         """创建新任务
-        
+
         Args:
             title: 任务标题
             description: 任务描述
             priority: 任务优先级
+            status: 任务状态，默认为pending
             due_date: 截止时间字符串
             tags: 标签字典
-            
+
         Returns:
             创建的任务对象
         """
@@ -51,6 +53,7 @@ class TaskService:
                 title=title,
                 description=description,
                 priority=priority,
+                status=status,
                 due_date=parsed_due_date,
                 tags=tags or {}
             )

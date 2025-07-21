@@ -24,6 +24,7 @@ def add_task(
     title: str = typer.Argument(..., help="任务标题"),
     description: Optional[str] = typer.Option(None, "--desc", "-d", help="任务描述"),
     priority: TaskPriority = typer.Option(TaskPriority.MEDIUM, "--priority", "-p", help="任务优先级"),
+    status: TaskStatus = typer.Option(TaskStatus.PENDING, "--status", "-s", help="任务状态"),
     due_date: Optional[str] = typer.Option(None, "--due", help="截止时间(支持自然语言)")
 ):
     """添加新任务"""
@@ -32,6 +33,7 @@ def add_task(
             title=title,
             description=description,
             priority=priority,
+            status=status,
             due_date=due_date
         )
         
@@ -41,6 +43,7 @@ def add_task(
         if task.description:
             console.print(f"描述: {task.description}")
         console.print(f"优先级: {task.priority.value}")
+        console.print(f"状态: {task.status.value}")
         if task.due_date:
             console.print(f"截止时间: {format_datetime(task.due_date)}")
         
