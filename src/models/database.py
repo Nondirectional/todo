@@ -8,7 +8,7 @@ from typing import Optional
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from .task import Base
+from src.models.task import Base
 
 
 class DatabaseManager:
@@ -52,7 +52,8 @@ class DatabaseManager:
     def get_session(self) -> Session:
         """获取数据库会话"""
         if self.SessionLocal is None:
-            raise RuntimeError("数据库未初始化，请先调用 init_database()")
+            # 自动初始化数据库
+            self.init_database()
         return self.SessionLocal()
     
     def close(self) -> None:

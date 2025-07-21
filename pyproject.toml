@@ -11,11 +11,12 @@ dependencies = [
     "pendulum>=3.0.0",
     "rich>=14.0.0",
     "pydantic>=2.11.7",
-    "pydantic-settings>=2.10.1"
+    "pydantic-settings>=2.10.1",
+    "httpx>=0.24.0"
 ]
 
 [project.scripts]
-todo = "todo.cli.main:app"
+todo = "src.cli.main:app"
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -23,4 +24,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["todo*"]
+include = ["src*"]

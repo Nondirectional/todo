@@ -13,6 +13,7 @@ This file provides a high-level overview of the project and the expected product
 - **时间跟踪**: 支持创建时间、开始时间、截止时间、完成时间管理
 - **数据持久化**: 使用SQLite数据库存储任务数据
 - **AI助手集成**: 通过agno连接大模型，支持对话式任务记录和日报生成
+- **工具包扩展**: 提供agno兼容的TodoToolkit，使AI助手可自主执行待办操作
 - **命令行界面**: 使用Typer框架提供友好的CLI交互体验
 
 ## Overall Architecture
@@ -25,4 +26,5 @@ This file provides a high-level overview of the project and the expected product
 
 技术栈: Python 3.12+ | Typer | SQLAlchemy | SQLite | agno | uv包管理
 
+[2025-07-18 12:11:51] - New feature: 完成了agno兼容的TodoToolkit工具包开发，为AI助手提供自主待办管理能力
 [2025-07-17 22:51:30] - Architecture update: 设计并确认了完整的CLI todo应用架构，包括Typer CLI、SQLite数据库、AI集成等核心模块

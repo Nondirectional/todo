@@ -5,10 +5,10 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from ..models.database import init_db
-from ..services.task_service import TaskService
-from . import task_commands
-from . import ai_commands
+from src.models.database import init_db
+from src.services.task_service import TaskService
+from src.cli import task_commands
+from src.cli import ai_commands
 
 # 创建Typer应用
 app = typer.Typer(
@@ -60,7 +60,7 @@ app.command(name="ai-setup", help="🔧 设置AI助手")(ai_commands.setup_comma
 @app.command(name="version")
 def show_version():
     """显示版本信息"""
-    from .. import __version__
+    from src import __version__
     console.print(f"Todo CLI 版本: {__version__}", style="bold green")
 
 
@@ -87,7 +87,7 @@ def init_command():
 def show_stats():
     """显示任务统计信息"""
     try:
-        from ..models.task import TaskStatus
+        from src.models.task import TaskStatus
         
         pending = len(task_service.list_tasks(status=TaskStatus.PENDING))
         in_progress = len(task_service.list_tasks(status=TaskStatus.IN_PROGRESS))
