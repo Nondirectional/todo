@@ -2,26 +2,38 @@
 
 This file documents recurring patterns and standards used in the project.
 It is optional, but recommended to be updated as the project evolves.
-2025-07-17 22:47:07 - Log of updates made.
+2025-07-29 11:07:02 - Log of updates made.
 
 *
 
 ## Coding Patterns
 
-* **Agno工具包开发模式**: 
-  - 继承`agno.tools.Toolkit`基类
-  - 使用`register()`方法注册工具函数，支持`show_result`和`stop_after_tool_call`配置
-  - 工具函数返回字符串格式的友好结果描述，包含emoji表情符号增强可读性
-  - 完整的类型提示：参数使用`Optional[Type]`，返回值统一为`str`
-  - 统一的错误处理模式：`try-except`包装，返回格式化错误信息
+* **Langchain 工具封装模式**：使用 @tool 装饰器将现有业务逻辑封装为 AI 可调用的工具
+  - 保持与原有 CLI 命令的参数一致性
+  - 统一的错误处理和返回格式（Dict[str, Any]）
+  - 数据库会话管理的标准化模式（try-except-finally）
+
+* **配置管理模式**：统一的配置持久化和优先级处理
+  - 使用 JSON 格式存储配置文件
+  - 配置优先级：命令行参数 > 配置文件 > 默认值
+  - 配置验证和错误处理的标准化流程
 
 ## Architectural Patterns
 
-* **服务层集成模式**:
-  - 工具包通过依赖注入方式使用现有服务层（TaskService）
-  - 保持工具包轻量，业务逻辑保留在服务层
-  - 工具包专注于参数验证、类型转换和结果格式化
+* **工具模块化设计**：按功能域分组工具（任务、分类、标签）
+  - 提供 ALL_TOOLS、TASK_TOOLS、CATEGORY_TOOLS、TAG_TOOLS 等预定义工具集
+  - 支持灵活的工具组合和选择性绑定
+
+* **命令模块抽取模式**：将复杂功能从演示代码抽取为正式命令
+  - 保持演示代码简洁，专注于核心功能展示
+  - 正式命令提供完整的错误处理、配置管理和用户体验
+  - 通过 Typer 子命令结构组织功能模块
+
+* **子命令分组模式**：使用 Typer 子应用组织相关功能
+  - 主命令专注于核心操作（如 start）
+  - 子命令组管理相关配置和辅助功能（如 config）
+  - 清晰的命令层次结构和职责分离
 
 ## Testing Patterns
 
-*   
+*

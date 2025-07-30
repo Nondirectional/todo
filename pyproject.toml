@@ -1,29 +1,26 @@
 [project]
-name = "todo"
+name = "todo-cli"
 version = "0.1.0"
-description = "A powerful CLI todo management tool with AI assistant capabilities"
+description = "A powerful CLI todo task management tool built with Typer and SQLAlchemy"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "typer>=0.16.0",
-    "agno>=1.7.4",
     "sqlalchemy>=2.0.0",
-    "pendulum>=3.0.0",
-    "rich>=14.0.0",
-    "pydantic>=2.11.7",
-    "pydantic-settings>=2.10.1",
-    "httpx>=0.24.0",
-    "openai>=1.97.0",
-    "google-genai>=1.26.0",
+    "rich>=13.0.0",
+    "click>=8.0.0",
+    "langchain[openai]>=0.3.27",
 ]
 
 [project.scripts]
-todo = "src.cli.main:app"
+todo = "todo.main:app"
 
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src*"]
+[tool.setuptools]
+packages = ["todo"]
+
+[[tool.uv.index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
